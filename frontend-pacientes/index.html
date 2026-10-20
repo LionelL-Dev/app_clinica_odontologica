@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Clínica Odontológica - Emilia Ongarini</title>
+  <!-- Leaflet: librería del mapa -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Archivo de Estilos -->
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <!-- PANTALLA DE BIENVENIDA (SPLASH SCREEN) -->
+  <div id="pantallaBienvenida" class="pantalla activa">
+    <div class="tarjeta-bienvenida">
+      <!-- Coloca tu imagen de logo en la misma carpeta como 'logo.png' -->
+      <img src="logo.png" alt="Logo Emilia Ongarini" class="logo-bienvenida" onerror="this.style.display='none'">
+      <h1>Bienvenido/a</h1>
+      <p class="subtitulo-bienvenida">Especialista en ortodoncia y alineadores invisibles</p>
+      <button id="btnComenzar" class="btn-principal">Comenzar</button>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR PRINCIPAL / MENÚ DE NAVEGACIÓN -->
+  <div id="pantallaPrincipal" class="pantalla ocultar">
+    
+    <!-- Encabezado superior con Logo -->
+    <header class="header-app">
+      <div class="logo-header">
+        <span class="titulo-brand">Emilia Ongarini</span>
+      </div>
+
+      <div id = "infoClima" class="widget-clima">
+        <span class="texto-clima">Cargando clima....</span>
+      </div>
+      
+      <nav class="menu-navegacion">
+        <button class="tab-btn activo" onclick="mostrarSeccion('seccionPacientes', event)">Pacientes</button>
+        <button class="tab-btn" onclick="mostrarSeccion('seccionMapa', event)">Ubicaciones / Mapa</button>
+      </nav>
+    </header>
+
+    <!-- SECCIÓN DE PACIENTES -->
+    <main id="seccionPacientes" class="seccion-contenido activa">
+      <h2>Gestión de Pacientes</h2>
+
+      <form id="formAlta">
+        <input type="text" id="campoNombre" placeholder="Nombre" required>
+        <input type="text" id="campoApellido" placeholder="Apellido" required>
+        <input type="text" id="campoTelefono" placeholder="Telefono" required>
+        <input type="text" id="campoLocalidad" placeholder="Localidad" required>
+        <input type="text" id="campoDomicilio" placeholder="Domicilio" required>
+        <input type="text" id="campoDNI" placeholder="DNI" required>
+        <input type="email" id="campoEmail" placeholder="Email" required>
+        <input type="text" id="campoObraSocial" placeholder="Obra Social">
+        <input type="text" id="campoNumAfiliado" placeholder="N° de Afiliado">
+        <input type="text" id="campoPlan" placeholder="Plan">
+
+        <!-- fechas -->
+        <div class="form-group-fecha-nac">
+          <label for="campoFechaNacimiento">Fecha de Nacimiento:</label>
+          <input type="date" id="campoFechaNacimiento" name="Fecha de Nacimiento" required>
+        </div>
+
+        <div class="form-group-fecha-turno">
+          <label for="campoFechaTurnoAsignado">Fecha de Turno Asignado:</label>
+          <input type="date" id="campoFechaTurnoAsignado" name="Fecha de Turno Asignado" required>
+        </div>
+
+        <button type="submit">Agregar Paciente</button>
+      </form>
+      <p id="mensaje"></p>
+
+      <div class="contenedor-tabla">
+        <table border="1">
+          <thead>
+            <tr>
+              <th>ID</th><th>Nombre</th><th>Apellido</th>
+              <th>Fecha de Nacimiento</th><th>Telefono</th><th>Localidad</th>
+              <th>Domicilio</th><th>DNI</th><th>Email</th><th>Fecha de Turno Asignado</th><th>Obra Social</th>
+              <th>N° de Afiliado</th><th>Plan de Obra Social</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoTabla"></tbody>
+        </table>
+      </div>
+
+      <!-- Sección de Tratamientos -->
+      <div id="seccionTratamientos" style="display: none;">
+        <h3>Tratamientos de: <span id="nombrePacienteSeleccionado"></span></h3>
+        <input type="hidden" id="idPacienteSeleccionado">
+
+        <form id="formTratamiento">
+          <input type="number" id="campoDiente" placeholder="N° de Diente (FDI)" required min="11" max="48">
+          <input type="text" id="campoPlanTratamiento" placeholder="Descripción del tratamiento" required>
+          <input type="date" id="campoFechaTratamiento" required>
+          <input type="number" id="campoPresupuesto" placeholder="Presupuesto ($)" step="0.01" required>
+          <button type="submit">Agregar Tratamiento</button>
+        </form>
+        <p id="mensajeTratamiento"></p>
+
+        <div class="contenedor-tabla">
+          <table border="1">
+            <thead>
+              <tr><th>ID</th><th>Diente</th><th>Tratamiento</th><th>Fecha</th><th>Presupuesto</th></tr>
+            </thead>
+            <tbody id="cuerpoTablaTratamientos"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- SECCIÓN DEL MAPA -->
+    <main id="seccionMapa" class="seccion-contenido ocultar">
+      <h2>Ubicación y Cobertura</h2>
+      <div id="mapa"></div>
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
